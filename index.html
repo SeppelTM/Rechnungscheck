@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Was Ihr Betrieb jeden Monat verschenkt | Sebastian Weiß Business Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14181b;
+    --steel:#2e4756;
+    --paper:#e8e6e1;
+    --paper-2:#f2f0ec;
+    --amber:#f0a202;
+    --rust:#b4442a;
+    --line:rgba(20,24,27,.16);
+    --measure:64ch;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  h1,h2,h3{font-family:"Saira Condensed",system-ui,sans-serif;font-weight:700;line-height:1.02;letter-spacing:.01em;margin:0}
+  h1{font-size:clamp(40px,6.6vw,74px);text-transform:uppercase}
+  h2{font-size:clamp(29px,4.2vw,44px);text-transform:uppercase}
+  h3{font-size:21px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+  p{margin:0 0 16px;max-width:var(--measure)}
+  a{color:inherit}
+  a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--steel);margin:0 0 14px}
+  .mark-amber{background:linear-gradient(transparent 62%,rgba(240,162,2,.55) 62%)}
+
+  /* Kopf */
+  .top{border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--paper);z-index:20}
+  .top .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 24px}
+  .mark{font-family:"Saira Condensed",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:18px}
+  .mark span{color:var(--steel);font-weight:600}
+  .top .mini{display:inline-block;background:var(--ink);color:var(--paper-2);text-decoration:none;font-family:"Saira Condensed",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:15px;padding:9px 18px;border:2px solid var(--ink)}
+  .top .mini:hover{background:var(--amber);border-color:var(--amber);color:var(--ink)}
+
+  /* Hero */
+  .hero{padding:64px 0 58px;border-bottom:1px solid var(--line)}
+  .hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:52px;align-items:start}
+  .hero h1 em{font-style:normal;color:var(--rust);display:block}
+  .lede{font-size:20px;margin-top:24px;max-width:44ch}
+  .cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px;align-items:center}
+  .btn{display:inline-block;background:var(--ink);color:var(--paper-2);text-decoration:none;font-family:"Saira Condensed",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:19px;padding:15px 30px;border:2px solid var(--ink);transition:background .15s,color .15s;cursor:pointer}
+  .btn:hover,.btn:focus-visible{background:var(--amber);border-color:var(--amber);color:var(--ink)}
+  .btn-note{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--steel);letter-spacing:.04em;max-width:23ch;line-height:1.5}
+
+  /* Auftragsmappe */
+  .mappe{background:var(--paper-2);border:1px solid var(--line);box-shadow:7px 7px 0 rgba(46,71,86,.14);font-family:"IBM Plex Mono",monospace;font-size:13.5px}
+  .mappe-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:13px 20px;border-bottom:1px solid var(--line);text-transform:uppercase;letter-spacing:.14em;font-size:11.5px;color:var(--steel)}
+  .zeile{display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:center;padding:12px 20px;border-bottom:1px solid rgba(20,24,27,.09)}
+  .zeile b{font-weight:500}
+  .betrag{font-variant-numeric:tabular-nums;color:var(--steel)}
+  .stempel{font-family:"Saira Condensed",sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.08em;padding:3px 9px;border:1.5px solid var(--steel);color:var(--steel)}
+  .offen{background:rgba(180,68,42,.08)}
+  .offen .stempel{border-color:var(--rust);color:var(--rust)}
+  .offen b,.offen .betrag{color:var(--rust)}
+  .mappe-foot{padding:15px 20px;border-top:2px solid var(--ink);display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+  .mappe-foot .lbl{text-transform:uppercase;letter-spacing:.12em;font-size:11.5px;color:var(--steel)}
+  .mappe-foot .sum{font-family:"Saira Condensed",sans-serif;font-size:30px;font-weight:700;color:var(--rust)}
+  .mappe-cap{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--steel);margin-top:11px;line-height:1.5}
+
+  section{padding:66px 0;border-bottom:1px solid var(--line)}
+
+  /* Kette */
+  .kette{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:38px;border:1px solid var(--line);background:var(--paper-2)}
+  .glied{padding:26px 24px;border-right:1px solid var(--line);position:relative}
+  .glied:last-child{border-right:0}
+  .glied .st{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--steel);display:block;margin-bottom:12px}
+  .glied h3{margin-bottom:9px;font-size:19px}
+  .glied p{font-size:15.5px;margin:0}
+  .leck{margin-top:16px;font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--rust);border-top:2px solid var(--rust);padding-top:9px;line-height:1.5}
+
+  /* Beweis */
+  .ehrlich{background:var(--paper-2);border-left:5px solid var(--amber);padding:28px 30px;margin-top:34px}
+  .ehrlich p:last-child{margin-bottom:0}
+
+  /* Stufen */
+  .stufen{margin-top:38px;border-top:1px solid var(--line)}
+  .stufe{display:grid;grid-template-columns:120px 1fr 200px;gap:26px;padding:25px 0;border-bottom:1px solid var(--line);align-items:start}
+  .stufe .st{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--steel);padding-top:5px}
+  .stufe h3{margin-bottom:8px}
+  .stufe p{font-size:16px;margin:0}
+  .preis{font-family:"Saira Condensed",sans-serif;font-weight:700;text-transform:uppercase;font-size:19px;letter-spacing:.04em;text-align:right;padding-top:2px}
+  .preis small{display:block;font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:400;letter-spacing:.06em;color:var(--steel);text-transform:none;margin-top:5px;line-height:1.45}
+  .gratis{color:var(--rust)}
+
+  /* Einwände */
+  .fragen{margin-top:34px;border-top:1px solid var(--line)}
+  details{border-bottom:1px solid var(--line)}
+  summary{cursor:pointer;padding:19px 0;font-family:"Saira Condensed",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.04em;font-size:20px;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-size:26px;color:var(--amber);line-height:1}
+  details[open] summary::after{content:"–"}
+  details p{padding-bottom:19px;margin:0;font-size:16px}
+
+  /* Wer */
+  .wer{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start}
+  .fakten{font-family:"IBM Plex Mono",monospace;font-size:14px;list-style:none;padding:0;margin:0}
+  .fakten li{padding:12px 0;border-bottom:1px solid var(--line);display:flex;gap:16px}
+  .fakten li:first-child{border-top:1px solid var(--line)}
+  .fakten .k{color:var(--steel);min-width:104px;text-transform:uppercase;font-size:11.5px;letter-spacing:.12em;padding-top:3px}
+
+  /* Formular */
+  .schluss{background:var(--ink);color:var(--paper-2);border-bottom:0}
+  .schluss h2{color:var(--paper-2)}
+  .schluss p{color:rgba(232,230,225,.78)}
+  .schluss .eyebrow{color:var(--amber)}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start;margin-top:8px}
+  form{display:grid;gap:15px}
+  label{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:7px}
+  input,select,textarea{width:100%;background:rgba(242,240,236,.06);border:1px solid rgba(242,240,236,.3);color:var(--paper-2);font-family:"IBM Plex Sans",sans-serif;font-size:16px;padding:12px 14px}
+  textarea{min-height:92px;resize:vertical}
+  .form-btn{background:var(--amber);border-color:var(--amber);color:var(--ink);width:100%;text-align:center}
+  .form-btn:hover{background:transparent;color:var(--amber)}
+  .klein{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:rgba(232,230,225,.6);line-height:1.6;margin:0}
+  .klein a{color:var(--amber)}
+  .direkt{font-family:"IBM Plex Mono",monospace;font-size:14.5px;margin-top:22px;line-height:2.1}
+  .direkt a{color:var(--amber)}
+  .plaetze{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--amber);color:var(--amber);padding:7px 13px;margin-bottom:20px}
+
+  footer{padding:24px 0;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--steel);background:var(--ink)}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+  @media (max-width:880px){
+    .hero-grid,.wer,.form-grid{grid-template-columns:1fr;gap:38px}
+    .kette{grid-template-columns:1fr}
+    .glied{border-right:0;border-bottom:1px solid var(--line)}
+    .glied:last-child{border-bottom:0}
+    .stufe{grid-template-columns:1fr;gap:10px}
+    .preis{text-align:left}
+    .hero{padding:46px 0 42px}
+    section{padding:48px 0}
+    .top .mini{font-size:13px;padding:8px 13px}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="mark">Sebastian Weiß <span>Business Services</span></div>
+    <a class="mini" href="#kontakt">Check anfragen</a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Kostenloser Check · Werkstatt &amp; Handwerk in Hessen</p>
+      <h1>Sie haben gearbeitet.<em>Bezahlt wurde weniger.</em></h1>
+      <p class="lede">Die halbe Stunde extra. Die zweite Anfahrt. Das Teil aus dem Regal. In den meisten Betrieben landet ein Teil der geleisteten Arbeit nie auf einer Rechnung — und keiner merkt es, weil die Aufträge trotzdem weitergehen.</p>
+      <p class="lede" style="font-size:17px"><span class="mark-amber">Ich gehe zwei Stunden lang Ihre Auftragsmappen durch und zeige Ihnen schwarz auf weiß, was fehlt.</span> Kostenlos. Ohne Blick in Ihre Buchhaltung.</p>
+      <div class="cta-row">
+        <a class="btn" href="#kontakt">Zwei Stunden vereinbaren</a>
+        <span class="btn-note">Vor Ort oder digital · keine Verpflichtung danach</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="mappe">
+        <div class="mappe-head"><span>Auftragsmappen · Stichprobe</span><span>6 Wochen</span></div>
+        <div class="zeile"><b>Zusatzarbeit nach Rücksprache</b><span class="betrag">340,00 €</span><span class="stempel">berechnet</span></div>
+        <div class="zeile offen"><b>Zweite Anfahrt, aus Kulanz</b><span class="betrag">185,00 €</span><span class="stempel">offen</span></div>
+        <div class="zeile"><b>Ersatzteil aus Eigenbestand</b><span class="betrag">128,50 €</span><span class="stempel">berechnet</span></div>
+        <div class="zeile offen"><b>Mehrstunden, nicht notiert</b><span class="betrag">420,00 €</span><span class="stempel">offen</span></div>
+        <div class="zeile offen"><b>Nacharbeit im Folgetermin</b><span class="betrag">275,00 €</span><span class="stempel">offen</span></div>
+        <div class="mappe-foot"><span class="lbl">In 6 Wochen nicht berechnet</span><span class="sum">880,00 €</span></div>
+      </div>
+      <p class="mappe-cap">Beispielhafte Darstellung, keine echten Kundendaten.<br>Was bei Ihnen offen ist, zeigt der Check.</p>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Wo es undicht ist</p>
+    <h2>Das Loch sitzt selten<br>bei der Rechnung</h2>
+    <p>Vom ersten Anruf bis zum Geldeingang durchläuft jeder Auftrag dieselben drei Stationen. An jeder geht etwas verloren — meist an einer anderen, als der Chef vermutet.</p>
+    <div class="kette">
+      <div class="glied">
+        <span class="st">Station 1</span>
+        <h3>Angebot</h3>
+        <p>Anfrage kommt rein, das Angebot entsteht abends oder am Wochenende. Bis es raus ist, hat der Kunde oft schon jemand anderen beauftragt.</p>
+        <div class="leck">Verloren: der Auftrag, bevor er begonnen hat.</div>
+      </div>
+      <div class="glied">
+        <span class="st">Station 2</span>
+        <h3>Ausführung</h3>
+        <p>Unter der Hebebühne oder auf der Baustelle schreibt niemand mit. Mehrstunden, Kleinmaterial und Zusatzarbeiten bleiben im Kopf — und der ist abends leer.</p>
+        <div class="leck">Verloren: alles, was nicht in der Mappe steht.</div>
+      </div>
+      <div class="glied">
+        <span class="st">Station 3</span>
+        <h3>Rechnung</h3>
+        <p>Geschrieben wird, was in der Mappe steht. Wer aus Kulanz kürzt oder eine Position vergisst, merkt es erst, wenn am Jahresende die Zahlen nicht passen.</p>
+        <div class="leck">Verloren: Geld, das Sie bereits verdient haben.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">So läuft es ab</p>
+    <h2>Erst zeigen. Dann einrichten.<br>In der Reihenfolge.</h2>
+    <p>Sie kaufen nichts, bevor Sie eine Zahl gesehen haben. Findet der Check nichts Nennenswertes, haben Sie zwei Stunden investiert und wissen, dass bei Ihnen alles läuft — auch das ist ein Ergebnis.</p>
+    <div class="stufen">
+      <div class="stufe">
+        <div class="st">Schritt 1</div>
+        <div>
+          <h3>Der Check</h3>
+          <p>Wir gehen gemeinsam Ihre Auftragsmappen und Angebote der letzten Monate durch. Am Ende bekommen Sie ein Protokoll auf einer Seite: was gemacht wurde, was berechnet wurde, was fehlt — und an welcher der drei Stationen es bei Ihnen klemmt.</p>
+        </div>
+        <div class="preis gratis">Kostenlos<small>ca. 2 Stunden · Sie behalten das Protokoll, egal wie Sie sich entscheiden</small></div>
+      </div>
+      <div class="stufe">
+        <div class="st">Schritt 2</div>
+        <div>
+          <h3>System einrichten</h3>
+          <p>Ein Ablauf, der zu Ihrem Betrieb passt statt umgekehrt: Angebot in Minuten statt Stunden, Positionen direkt auf dem Handy erfassen, Rechnung ohne Suchen. Ich richte es ein, arbeite Ihr Team ein und bin dabei, bis es im Alltag läuft.</p>
+        </div>
+        <div class="preis">Festpreis<small>vorab schriftlich, nach Umfang — keine Stundenzettel</small></div>
+      </div>
+      <div class="stufe">
+        <div class="st">Schritt 3</div>
+        <div>
+          <h3>Dranbleiben</h3>
+          <p>Optional: monatlicher Abgleich, ob das System wirklich greift, plus weitere Abläufe, die Zeit fressen — Lieferantenpreise vergleichen, Terminplanung, Mahnwesen.</p>
+          <div style="height:6px"></div>
+        </div>
+        <div class="preis">Monatlich<small>freiwillig, jederzeit kündbar</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap wer">
+    <div>
+      <p class="eyebrow">Wer das macht</p>
+      <h2>Ich komme aus der Werkstatt,<br>nicht aus der Beratung</h2>
+      <p>Ich bin Sebastian Weiß aus Buseck. Kfz-Mechatronik, Ersatzteildienst, Werkstattorganisation, Kundendienst — ich weiß, wie eine Auftragsmappe aussieht, wenn der Tag voll war, und warum abends niemand mehr Lust auf Papierkram hat. Auf Baustellen habe ich dasselbe bei Elektrikern, Trockenbauern und Malern gesehen: anderes Gewerk, gleiche Löcher.</p>
+      <div class="ehrlich">
+        <p><strong>Warum kostenlos?</strong> Weil ich mit diesem Angebot neu starte und Referenzen brauche. Ich nehme die ersten Betriebe zum Nulltarif, um zu zeigen, was ich finde — und wenn es passt, empfehlen Sie mich weiter. Das ist der ganze Deal. Wer Ihnen als Unbekannter sofort einen Vertrag hinlegt, sollte Sie misstrauisch machen.</p>
+      </div>
+    </div>
+    <div>
+      <ul class="fakten">
+        <li><span class="k">Für</span><span>Freie Kfz-Werkstätten, Handwerksbetriebe, unabhängige Autohändler</span></li>
+        <li><span class="k">Größe</span><span>1 bis ca. 15 Mitarbeiter</span></li>
+        <li><span class="k">Gebiet</span><span>Hessen — vor Ort oder digital</span></li>
+        <li><span class="k">Dauer</span><span>ca. 2 Stunden, Termin nach Feierabend möglich</span></li>
+        <li><span class="k">Einblick</span><span>Nur Auftragsunterlagen. Buchhaltung und Konten bleiben außen vor</span></li>
+        <li><span class="k">Bindung</span><span>Keine. Das Protokoll gehört Ihnen</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Bevor Sie fragen</p>
+    <h2>Die vier Einwände,<br>die immer kommen</h2>
+    <div class="fragen">
+      <details>
+        <summary>Wo ist der Haken bei „kostenlos"?</summary>
+        <p>Es gibt keinen. Ich hoffe, dass Sie mich danach mit der Einrichtung beauftragen — aber Sie bekommen das Protokoll auch, wenn Sie das nicht tun. Kein Abo, keine automatische Verlängerung, keine Rechnung im Nachgang.</p>
+      </details>
+      <details>
+        <summary>Meine Zahlen gehen niemanden etwas an.</summary>
+        <p>Richtig. Ich brauche keine Kontoauszüge, keine BWA und keinen Zugang zu Ihrer Buchhaltung. Ich schaue in Auftragsmappen und Angebote — also in das, was Ihre Mitarbeiter ohnehin täglich in der Hand haben. Auf Wunsch unterschreibe ich vorher eine Verschwiegenheitserklärung.</p>
+      </details>
+      <details>
+        <summary>Ich habe keine zwei Stunden übrig.</summary>
+        <p>Deshalb machen wir es nach Feierabend, samstags oder digital per Bildschirmübertragung. Wenn zwei Stunden zeigen, dass jeden Monat ein dreistelliger Betrag liegen bleibt, sind es die am besten investierten zwei Stunden des Quartals. Wenn nicht, wissen Sie es auch.</p>
+      </details>
+      <details>
+        <summary>Wir haben schon Software dafür.</summary>
+        <p>Dann ist die Frage nicht, ob Sie Software haben, sondern ob sie im Alltag benutzt wird. Die meisten Löcher entstehen nicht, weil ein Programm fehlt, sondern weil unter Zeitdruck niemand es öffnet. Genau das schauen wir uns an — und wenn Ihr System läuft, sage ich Ihnen das.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="schluss" id="kontakt">
+  <div class="wrap">
+    <div class="form-grid">
+      <div>
+        <p class="eyebrow">Termin anfragen</p>
+        <span class="plaetze">Aktuell 3 Plätze pro Monat</span>
+        <h2>Zwei Stunden.<br>Danach wissen Sie,<br>was fehlt.</h2>
+        <p>Ich mache die Checks neben meiner Festanstellung, deshalb sind es wenige pro Monat. Sie hören innerhalb von 24 Stunden von mir, mit zwei Terminvorschlägen.</p>
+        <div class="direkt">
+          <div>Telefon · <a href="tel:+49XXXXXXXXX">[Telefonnummer eintragen]</a></div>
+          <div>E-Mail · <a href="mailto:name@domain.de">[E-Mail eintragen]</a></div>
+        </div>
+      </div>
+
+      <div>
+        <!-- Formular-Ziel eintragen: Formspree, Tally o. ä. -->
+        <form action="[FORMULAR-URL EINTRAGEN]" method="POST">
+          <div>
+            <label for="betrieb">Betrieb / Gewerk</label>
+            <input id="betrieb" name="betrieb" type="text" placeholder="z. B. Kfz-Werkstatt, Elektro, Trockenbau" required>
+          </div>
+          <div>
+            <label for="groesse">Wie viele arbeiten mit?</label>
+            <select id="groesse" name="groesse" required>
+              <option value="">Bitte wählen</option>
+              <option>Allein</option>
+              <option>2 bis 4</option>
+              <option>5 bis 9</option>
+              <option>10 und mehr</option>
+            </select>
+          </div>
+          <div>
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" required>
+          </div>
+          <div>
+            <label for="kontakt">Telefon oder E-Mail</label>
+            <input id="kontakt" name="kontakt" type="text" required>
+          </div>
+          <div>
+            <label for="klemmt">Wo klemmt es am ehesten? (optional)</label>
+            <textarea id="klemmt" name="klemmt" placeholder="Angebote gehen zu spät raus, Rechnungen bleiben liegen, Papierkram frisst den Abend …"></textarea>
+          </div>
+          <button class="btn form-btn" type="submit">Check anfragen</button>
+          <p class="klein">Ihre Angaben nutze ich ausschließlich, um mich bei Ihnen zu melden. Keine Weitergabe, kein Newsletter. Näheres in der <a href="#">Datenschutzerklärung</a>.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Sebastian Weiß Business Services · Buseck, Hessen</span>
+    <span>[Impressum] · [Datenschutz]</span>
+  </div>
+</footer>
+
+</body>
+</html>
